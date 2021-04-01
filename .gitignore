@@ -1,4 +1,5 @@
 Programs/
 Programs1/
+tests/
 *.o
 *.out
