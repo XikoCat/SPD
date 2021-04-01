@@ -3,3 +3,5 @@ Programs1/
 tests/
 *.o
 *.out
+*.gch
+.vscode
