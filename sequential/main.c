@@ -33,6 +33,7 @@ char *determineSquareType(char *file_path)
     int n = -1;
 
     FILE *fp = fopen(file_path, "r");
+    verify_fopen(fp);
 
     for (int i = 0; i < squareSize; i++)
     {
@@ -52,12 +53,18 @@ char *determineSquareType(char *file_path)
 
             if (i == squareSize - 1)
                 if (column_sum[j] != target)
+                {
+                    free(column_sum);
                     return NADA;
+                }
         }
         if (i == 0)
             target = line_sum;
         else if (line_sum != target)
+        {
+            free(column_sum);
             return NADA;
+        }
     }
     fclose(fp);
 

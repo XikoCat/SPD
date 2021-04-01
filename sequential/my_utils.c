@@ -1,13 +1,19 @@
 #include "my_utils.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 void verify_alloc(void *p)
 {
     if (!p)
     {
-        fprintf(stderr, "Erro a alocar memoria!");
+        perror("Erro a alocar memoria!");
         exit(3);
+    }
+}
+
+void verify_fopen(FILE *fp)
+{
+    if (fp == NULL){
+        perror("Erro ao abrir ficheiro!");
+        exit(4);
     }
 }
 
