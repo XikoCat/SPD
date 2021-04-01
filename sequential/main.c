@@ -1,18 +1,21 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int getSizeFromName(char *file)
 {
-    
-    int p = 0;
-    while (file[p] < 48 || file[p] > 57)
-        p++;
-    int r = -1;
-    scanf();
+    char s[11];
+    int i = 0;
+    char c;
+    while (scanf("%c", &c))
+        if (c >= 48 && c <= 57)
+                s[i++] = c;
+    s[i++] = '\0';
+    return atoi(s);
 }
 
 void solveMagicSquare(int argc, char *argv[])
 {
-    if(argc < 2)
+    if (argc < 2)
     {
         perror("Missing test file argument");
         exit(3);
