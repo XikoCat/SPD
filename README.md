@@ -41,5 +41,5 @@ Correr o seguinte commando:
 
 O programa irá compilar e correr com o ficheiro de teste fornecido.
 
-Apenas estão incluídos alguns ficheiros de teste, não foi possivel incluir os restantes devido ao limite de 100Mb que o github tem.
-Para o resto dos test files clicar aqui.
+Apenas estão incluídos alguns ficheiros de teste, não foi possível incluir os restantes devido ao limite de 100Mb que o github tem.
+Para o resto dos test files clicar aqui (uploading).
