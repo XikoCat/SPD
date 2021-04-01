@@ -1,6 +1,6 @@
 Programs/
 Programs1/
-tests/
+*.txt
 *.o
 *.out
 *.gch

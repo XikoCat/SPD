@@ -27,3 +27,14 @@ Status: TODO
 ### OpenMP + MPI
 
 Status: TODO
+
+## Instruções
+
+Abrir command line na pasta com a implementação (ex. ./sequential/)\
+Correr o seguinte commando:
+
+```bash
+./run.sh ../tests/<test-file>
+```
+
+O programa irá compilar e correr com o ficheiro de teste fornecido.
