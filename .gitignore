@@ -3,6 +3,9 @@ Programs1/
 *.o
 *.out
 *.gch
+*.zip
+*.zip.*
+*.7z.*
 .vscode
 
 #test files over 100MB
