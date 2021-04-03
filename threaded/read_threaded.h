@@ -5,8 +5,8 @@
 #include <stdlib.h>
 
 long getFileCharCount(char *f);
-int *getIntsArray(char *file, int count);
-void *read_ints_threaded(void *targ);
+int *getIntsArrayThreaded(char *file, int count, int thread_count);
+void *readIntsThreaded(void *targ);
 
 typedef struct read_data
 {
@@ -14,6 +14,7 @@ typedef struct read_data
     char *file;
     long start;
     long end;
+    int count_estimate;
 
     //output
     int *out;
@@ -21,6 +22,7 @@ typedef struct read_data
 
 } read_data;
 
-read_data *set_read_data(char *file, long start, long end);
+read_data *set_read_data(char *file, long start, long end, int count_estimate);
+void free_read_data(read_data *rd);
 
 #endif

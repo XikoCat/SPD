@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "my_utils.c"
+#include "read_threaded.c"
+
+#define DEFAULT_THREAD_COUNT 2
 
 int getSizeFromName(char *file)
 {
@@ -22,9 +25,10 @@ int getSizeFromName(char *file)
 #define PERFEITO "É quadrado magico perfeito"
 
 //reads and determines as it reads
-char *determineSquareType(char *file_path)
+char *determineSquareType(char *file_path, int thread_count)
 {
     int squareSize = getSizeFromName(file_path);
+    int *array = getIntsArrayThreaded(file_path, squareSize * squareSize, thread_count);
 
     int line_sum = 0, diag_1 = 0, diag_2 = 0;
     int *column_sum = new_int_array(squareSize);
@@ -32,15 +36,12 @@ char *determineSquareType(char *file_path)
 
     int n = -1;
 
-    FILE *fp = fopen(file_path, "r");
-    verify_fopen(fp);
-
     for (int i = 0; i < squareSize; i++)
     {
         line_sum = 0;
         for (int j = 0; j < squareSize; j++)
         {
-            fscanf(fp, "%d", &n);
+            n = array[i * squareSize + j];
 
             line_sum += n;
             column_sum[j] += n;
@@ -55,6 +56,7 @@ char *determineSquareType(char *file_path)
                 if (column_sum[j] != target)
                 {
                     free(column_sum);
+                    free(array);
                     return NADA;
                 }
         }
@@ -63,12 +65,13 @@ char *determineSquareType(char *file_path)
         else if (line_sum != target)
         {
             free(column_sum);
+            free(array);
             return NADA;
         }
     }
-    fclose(fp);
 
     free(column_sum);
+    free(array);
 
     if (diag_1 == target && diag_2 == target)
         return PERFEITO;
@@ -82,8 +85,9 @@ void solveMagicSquare(int argc, char *argv[])
         fprintf(stderr, "Missing test file argument");
         exit(3);
     }
+    int thread_count = argc > 2 ? atoi(argv[2]) : DEFAULT_THREAD_COUNT;
 
-    printf("%s", determineSquareType(argv[1]));
+    printf("%s", determineSquareType(argv[1], thread_count));
 }
 
 int main(int argc, char *argv[])
