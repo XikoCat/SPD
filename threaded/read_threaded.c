@@ -35,7 +35,7 @@ int *getIntsArrayThreaded(char *file, int count, int thread_count)
         read_data_list[i] = set_read_data(file, start, (long)end, count_estimate);
         pthread_create(&thread_list[i], NULL, readIntsThreaded, (void *)read_data_list[i]);
 
-        start = (long)end + 1;
+        start = (long)end;
         if (i == thread_count - 2)
             end = total_char_count;
         else
@@ -47,6 +47,12 @@ int *getIntsArrayThreaded(char *file, int count, int thread_count)
         memcpy(array + size, read_data_list[i]->out, read_data_list[i]->size * sizeof(int));
         size += read_data_list[i]->size;
         free_read_data(read_data_list[i]);
+
+        /*
+        for (int i = 0; i < count; i++)
+            printf("%d ", array[i]);
+        printf("\n");
+        */
     }
     //free(read_data_list);
     free(thread_list);
@@ -58,13 +64,15 @@ void *readIntsThreaded(void *targ)
 {
     read_data *rd = (read_data *)targ;
 
+    //printf("S,E: %ld , %ld\n", rd->start, rd->end);
+
     FILE *fp = fopen(rd->file, "r");
     verify_fopen(fp);
 
     //find nearest int
     if (rd->start != 0)
     {
-        fseek(fp, rd->start - 2, SEEK_SET);
+        fseek(fp, rd->start - 1, SEEK_SET);
         char c = '\0';
         while (c != ' ')
             fscanf(fp, "%c", &c);
@@ -76,11 +84,11 @@ void *readIntsThreaded(void *targ)
 
     int *array = malloc(rd->count_estimate * sizeof(int));
     int i = 0;
-    char c;
-    while (ftell(fp) < rd->end)
+    int s = 0;
+    while (ftell(fp) + s < rd->end)
     {
         fscanf(fp, "%d", &array[i++]);
-        fscanf(fp, "%c", &c);
+        s = 1;
     }
     fclose(fp);
 
