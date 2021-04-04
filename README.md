@@ -10,36 +10,67 @@ O programa deve identificar se o quadrado é magico perfeito, quadrado magico im
 
 ### Sequencial
 
-Status: Works
-Falta comentários nas funções
+Status: Works\
+TODO:
 
-### Threaded
+- [ ] Comentários funções
 
-Status: Not Working (Current)\
-TODO: leitura threaded
+### Threaded (Current)
+
+Status: Working\
+TODO:
+
+- [x] leitura threaded
+- [ ] Resolver threaded
 
 ### OpenMP
 
-Status: TODO
+Status: Not started
 
 ### MPI
 
-Status: TODO
+Status: Not started
 
 ### OpenMP + MPI
 
-Status: TODO
+Status: Not started
 
 ## Instruções
 
-Abrir command line na pasta com a implementação (ex. ./sequential/)\
-Correr o seguinte commando:
+Apenas estão incluídos alguns ficheiros de teste, não foi possível incluir os restantes devido ao limite de 100Mb do github.
+Para o resto dos test files clicar [aqui](https://mega.nz/file/Cc8lnYaS#bikjsB_99M4HY81XMtz3itC8jDUnwN8ruZFvVP2_rxM).\
+Extrair o conteúdo do ficheiro comprimido para o diretório ```/tests```
+
+Abrir terminal nno diretório do projeto
+
+- Compilar e executar - correr o seguinte commando:
 
 ```bash
-./run.sh ../tests/<test-file>
+# Sequential
+./sequential/run.sh tests/<test-file>
+
+# Threaded
+./threaded/run.sh tests/<test-file> <thread-count>
 ```
 
 O programa irá compilar e correr com o ficheiro de teste fornecido.
 
-Apenas estão incluídos alguns ficheiros de teste, não foi possível incluir os restantes devido ao limite de 100Mb que o github tem.
-Para o resto dos test files clicar aqui (uploading).
+- Compilar apenas:
+
+```bash
+# Sequential
+./sequential/compile.sh
+
+# Threaded
+./threaded/compile.sh
+```
+
+- Executar apenas:
+
+```bash
+# Sequential
+./sequential/a.out tests/<test-file>
+
+# Threaded
+./threaded/a.out tests/<test-file> <thread-count>
+```
