@@ -41,7 +41,7 @@ Apenas estão incluídos alguns ficheiros de teste, não foi possível incluir o
 Para o resto dos test files clicar [aqui](https://mega.nz/file/Cc8lnYaS#bikjsB_99M4HY81XMtz3itC8jDUnwN8ruZFvVP2_rxM).\
 Extrair o conteúdo do ficheiro comprimido para o diretório ```/tests```
 
-Abrir terminal nno diretório do projeto
+Abrir terminal no diretório do projeto
 
 - Compilar e executar - correr o seguinte commando:
 
