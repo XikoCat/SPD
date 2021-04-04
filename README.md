@@ -10,30 +10,44 @@ O programa deve identificar se o quadrado é magico perfeito, quadrado magico im
 
 ### Sequencial
 
-Status: Works\
+Status: Working
+
 TODO:
 
 - [ ] Comentários funções
 
 ### Threaded (Current)
 
-Status: Working\
+Status: Working
+
 TODO:
 
-- [x] leitura threaded
+- [x] Leitura threaded
 - [ ] Resolver threaded
 
 ### OpenMP
 
 Status: Not started
 
+TODO:
+
+- [ ] Everything
+
 ### MPI
 
 Status: Not started
 
+TODO:
+
+- [ ] Everything
+
 ### OpenMP + MPI
 
 Status: Not started
+
+TODO:
+
+- [ ] Everything
 
 ## Instruções
 
