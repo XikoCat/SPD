@@ -53,7 +53,7 @@ Por fim, irei analisar os dados obtidos. Fazer as comparações necessárias e e
 # Introdução
 
 Este projeto tem como objetivo o desenvolvimento de um conjunto de programas na linguagem C com 5 diferentes abordagens, sendo estas sequencial, threaded, OpenMP, MPI e uma abordagem híbrida do OpenMP com MPI.
-O propósito destes programas é sempre o mesmo, determinar se os dados contidos num dado ficheiro de texto correspondem a um quadrado mágico e, em caso afirmativo, determinar se é [quadrado mágico](https://pt.wikipedia.org/wiki/Quadrado_m%C3%A1gico) perfeito ou imperfeito.
+O propósito destes programas é sempre o mesmo, determinar se os dados contidos num dado ficheiro de texto correspondem a um [quadrado mágico](#quadrado-magico) e, em caso afirmativo, determinar se é quadrado mágico perfeito ou imperfeito.
 
 (Como determinar se é quadrado magico)
 
@@ -73,7 +73,44 @@ O script irá correr o programa 31 vezes onde apenas a primeira não é contabil
 
 ## Quadrado magico
 
-(Detalhes importantes referir, não esquecer colocar referencias e bibliografia)
+Quadrado Mágico é uma tabela quadrada, com números, em que a soma de cada coluna, de cada linha e das duas diagonais são iguais.
+Pode ser classificado como:
+
+### Perfeito
+
+Um quadrado que obedece às regras de um quadrado mágico. A soma das linhas, colunas e diagonais é igual
+
+Exemplo:
+
+|**8**|**1**|**6**|
+|:---:|:---:|:---:|
+|**3**|**5**|**7**|
+|**4**|**9**|**2**|
+
+A soma de qualquer linha, coluna ou diagonal é 15.
+
+### Imperfeito/defeituoso
+
+Um quadrado que obedece quase todas regras de um quadrado mágico. A soma das linhas, colunas é igual, porém pelo menos uma das diagonais difere
+
+Exemplo:
+
+|**1**|**2**|**3**|
+|:---:|:---:|:---:|
+|**2**|**3**|**1**|
+|**3**|**1**|**2**|
+
+A soma de qualquer linha ou coluna e uma das diagonais é 6 a outra diagonal é 9.
+
+### Hipermágico
+
+Um quadrado que obedece às regras de um quadrado mágico e tem outras propriedades adicionais. Por exemplo, ao trocar duas colunas de lugar obtém-se outro quadrado mágico.
+
+### Diabólico
+
+É um quadrado hipermágico com muitas propriedades ou com propriedades muito complexas. O nome diabólico tem sua provável origem na dificuldade em formá-lo
+
+[Ver fonte](https://pt.wikipedia.org/wiki/Quadrado_m%C3%A1gico)
 
 ## GCC
 
