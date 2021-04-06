@@ -1,5 +1,6 @@
 Programs/
 Programs1/
+Other/
 *.o
 *.out
 *.gch

@@ -52,7 +52,7 @@ Por fim, irei analisar os dados obtidos. Fazer as comparações necessárias e e
 
 # Introdução
 
-Este projeto tem como objetivo o desenvolvimento de um conjunto de programas na linguagem C com 5 diferentes abordagens, sendo estas sequencial, threaded, OpenMP, MPI e uma abordagem híbrida do OpenMP com MPI.
+Este projeto tem como objetivo o estudo do desempenho de um conjunto de programas na linguagem C com 5 diferentes abordagens, sendo estas sequencial, threaded, OpenMP, MPI e uma abordagem híbrida do OpenMP com MPI.
 O propósito destes programas é sempre o mesmo, determinar se os dados contidos num dado ficheiro de texto correspondem a um [quadrado mágico](#quadrado-magico) e, em caso afirmativo, determinar se é quadrado mágico perfeito ou imperfeito.
 
 (Como determinar se é quadrado magico)
