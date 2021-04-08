@@ -24,7 +24,7 @@ int getSizeFromName(char *file)
 #define IMPERFEITO "É quadrado magico imperfeito"
 #define PERFEITO "É quadrado magico perfeito"
 
-//reads and determines as it reads
+//reads then determines the square type
 char *determineSquareType(char *file_path, int thread_count)
 {
     int squareSize = getSizeFromName(file_path);
