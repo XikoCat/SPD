@@ -8,7 +8,8 @@
 void verify_alloc(void *p);
 void verify_fopen(FILE *fp);
 
-// Create array
+// Usefull funtions
 int *new_int_array(int size);
+
 
 #endif
