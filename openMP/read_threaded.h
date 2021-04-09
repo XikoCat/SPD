@@ -23,7 +23,7 @@ typedef struct read_data
 read_data *set_read_data(char *file, long start, long end, int count_estimate);
 void free_read_data(read_data *rd);
 
-int *getIntsArrayThreaded(char *file, int count);
+int *getIntsArrayThreaded(char *file, int count, int thread_count);
 void readIntsThreaded(read_data *rd);
 
 #endif

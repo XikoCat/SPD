@@ -3,6 +3,8 @@
 #include "my_utils.c"
 #include "read_threaded.c"
 
+#define DEFAULT_THREAD_COUNT 2
+
 int getSizeFromName(char *file)
 {
     int p = 0;
@@ -23,10 +25,10 @@ int getSizeFromName(char *file)
 #define PERFEITO "É quadrado magico perfeito\n"
 
 //reads then determines the square type
-char *determineSquareType(char *file_path)
+char *determineSquareType(char *file_path, int thread_count)
 {
     int squareSize = getSizeFromName(file_path);
-    int *array = getIntsArrayThreaded(file_path, squareSize * squareSize);
+    int *array = getIntsArrayThreaded(file_path, squareSize * squareSize, thread_count);
 
     int line_sum = 0, diag_1 = 0, diag_2 = 0;
     int *column_sum = new_int_array(squareSize);
@@ -83,8 +85,10 @@ void solveMagicSquare(int argc, char *argv[])
         fprintf(stderr, "Missing test file argument");
         exit(3);
     }
+    int thread_count = argc > 2 ? atoi(argv[2]) : DEFAULT_THREAD_COUNT;
 
-    printf("%s", determineSquareType(argv[1]));
+    omp_set_num_threads(thread_count);
+    printf("%s", determineSquareType(argv[1], thread_count));
 }
 
 int main(int argc, char *argv[])

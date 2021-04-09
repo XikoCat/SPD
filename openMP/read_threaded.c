@@ -12,9 +12,9 @@ long getFileCharCount(char *f)
     return r;
 }
 
-int *getIntsArrayThreaded(char *file, int count)
+int *getIntsArrayThreaded(char *file, int count, int thread_count)
 {
-    int tid, thread_count = 4;
+    int tid;
     long total_char_count = getFileCharCount(file);
     double thread_char_count = (double)total_char_count / thread_count;
     int count_estimate = count / thread_count * 2;
