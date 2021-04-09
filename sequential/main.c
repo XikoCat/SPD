@@ -17,9 +17,9 @@ int getSizeFromName(char *file)
     return atoi(s);
 }
 
-#define NADA "Não é quadrado magico"
-#define IMPERFEITO "É quadrado magico imperfeito"
-#define PERFEITO "É quadrado magico perfeito"
+#define NADA "Não é quadrado magico\n"
+#define IMPERFEITO "É quadrado magico imperfeito\n"
+#define PERFEITO "É quadrado magico perfeito\n"
 
 //reads and determines as it reads
 char *determineSquareType(char *file_path)

@@ -31,8 +31,8 @@ int *getIntsArrayThreaded(char *file, int count)
         tid = omp_get_thread_num();
         thread_count = omp_get_num_threads();
         long start = (long)(tid * thread_char_count);
-        double end = (tid != thread_count - 1) ? (long)((1 + tid) * thread_char_count) : total_char_count;
-        read_data_list[tid] = set_read_data(file, start, (long)end, count_estimate);
+        long end = (tid != thread_count - 1) ? (long)((1 + tid) * thread_char_count) : total_char_count;
+        read_data_list[tid] = set_read_data(file, start, end, count_estimate);
         readIntsThreaded(read_data_list[tid]);
     }
 

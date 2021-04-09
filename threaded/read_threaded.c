@@ -27,23 +27,18 @@ int *getIntsArrayThreaded(char *file, int count, int thread_count)
     verify_alloc(array);
     int size = 0;
 
-    //divide the read task to multiple read_data structs
-    long start = 0;
-    double end = thread_char_count;
     for (int i = 0; i < thread_count; i++)
     {
-        read_data_list[i] = set_read_data(file, start, (long)end, count_estimate);
+        long start = (long)(i * thread_char_count);
+        long end = (i != thread_count - 1) ? (long)((1 + i) * thread_char_count) : total_char_count;
+        //printf("S|E: %ld | %ld\n",start, end);
+        read_data_list[i] = set_read_data(file, start, end, count_estimate);
         pthread_create(&thread_list[i], NULL, readIntsThreaded, (void *)read_data_list[i]);
-
-        start = (long)end;
-        if (i == thread_count - 2)
-            end = total_char_count;
-        else
-            end += thread_char_count;
     }
     for (int i = 0; i < thread_count; i++)
     {
         pthread_join(thread_list[i], NULL);
+        //printf("size: %d + %d, first: %d\n", size, read_data_list[i]->size, read_data_list[i]->out[0]);
         memcpy(array + size, read_data_list[i]->out, read_data_list[i]->size * sizeof(int));
         size += read_data_list[i]->size;
         free_read_data(read_data_list[i]);
