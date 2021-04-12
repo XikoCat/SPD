@@ -9,6 +9,7 @@ Other/
 *.7z
 *.7z.*
 .vscode
+*.debug
 
 #test files over 100MB
 i4095.txt
