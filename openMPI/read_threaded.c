@@ -34,13 +34,20 @@ int *getIntsArrayThreaded(char *file, int count, int thread_count)
         read_data_list[tid] = set_read_data(file, start, end, count_estimate);
         if (tid == 0)
         {
-            send_read_data_input(read_data_list[tid], 1);
+            int l = strlen(file);
+            MPI_Send(&l, 1, MPI_INT, 1, 50, MPI_COMM_WORLD);
+            MPI_Send(file, l, MPI_CHAR, 1, 50, MPI_COMM_WORLD);
+            MPI_Send(&start, 1, MPI_LONG, 1, 50, MPI_COMM_WORLD);
+            MPI_Send(&end, 1, MPI_LONG, 1, 50, MPI_COMM_WORLD);
+            MPI_Send(&count_estimate, 1, MPI_INT, 1, 50, MPI_COMM_WORLD);
         }
         else
             readIntsThreaded(read_data_list[tid]);
     }
 
-    rcv_read_data_output(read_data_list[0], 1);
+    MPI_Recv(&read_data_list[0]->size, 1, MPI_INT, 1, 50, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    read_data_list[0]->out = malloc(read_data_list[0]->size * sizeof(int));
+    MPI_Recv(read_data_list[0]->out, read_data_list[0]->size, MPI_INT, 1, 50, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
     for (int i = 0; i < thread_count; i++)
     {
@@ -101,16 +108,26 @@ void free_read_data(read_data *rd)
 
 void sateliteRead()
 {
-    read_data *rd = rcv_read_data_input(0);
+    long start;
+    long end;
+    int count_estimate;
+    int file_name_size;
+    char file[50];
 
-    printf("File: %s\n", rd->file);
-    FILE *fp = fopen(rd->file, "r");
+    MPI_Recv(&file_name_size, 1, MPI_INT, 0, 50, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    MPI_Recv(file, file_name_size, MPI_CHAR, 0, 50, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    MPI_Recv(&start, 1, MPI_LONG, 0, 50, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    MPI_Recv(&end, 1, MPI_LONG, 0, 50, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    MPI_Recv(&count_estimate, 1, MPI_INT, 0, 50, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    file[file_name_size] = '\0';
+
+    FILE *fp = fopen(file, "r");
     verify_fopen(fp);
 
     //find nearest int
-    if (rd->start != 0)
+    if (start != 0)
     {
-        fseek(fp, rd->start - 1, SEEK_SET);
+        fseek(fp, start - 1, SEEK_SET);
         char c = '\0';
         while (c != ' ')
             fscanf(fp, "%c", &c);
@@ -120,59 +137,16 @@ void sateliteRead()
 
     //pf pointer is now at the start of the closest int
 
-    int *out = malloc(rd->count_estimate * sizeof(int));
+    int *out = malloc(count_estimate * sizeof(int));
     int size = 0;
     int s = 0;
-    while (ftell(fp) + s < rd->end)
+    while (ftell(fp) + s < end)
     {
         fscanf(fp, "%d", &out[size++]);
         s = 1;
     }
     fclose(fp);
 
-    rd->out = out;
-    rd->size = size;
-
-    send_read_data_output(rd, 0);
-}
-
-void send_read_data_input(read_data *rd, int dest)
-{
-    int l = strlen(rd->file);
-    MPI_Send(&l, 1, MPI_INT, dest, 50, MPI_COMM_WORLD);
-    MPI_Send(rd->file, l, MPI_CHAR, dest, 50, MPI_COMM_WORLD);
-    MPI_Send(&rd->start, 1, MPI_LONG, dest, 50, MPI_COMM_WORLD);
-    MPI_Send(&rd->end, 1, MPI_LONG, dest, 50, MPI_COMM_WORLD);
-    MPI_Send(&rd->count_estimate, 1, MPI_INT, dest, 50, MPI_COMM_WORLD);
-}
-
-read_data *rcv_read_data_input(int recp)
-{
-    long start;
-    long end;
-    int count_estimate;
-    int file_name_size;
-    char file[50];
-
-    MPI_Recv(&file_name_size, 1, MPI_INT, recp, 50, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-    MPI_Recv(file, file_name_size, MPI_CHAR, recp, 50, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-    file[file_name_size] = '\0';
-    MPI_Recv(&start, 1, MPI_LONG, recp, 50, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-    MPI_Recv(&end, 1, MPI_LONG, recp, 50, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-    MPI_Recv(&count_estimate, 1, MPI_INT, recp, 50, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-
-    return set_read_data(file, start, end, count_estimate);
-}
-
-void send_read_data_output(read_data *rd, int dest)
-{
-    MPI_Send(&rd->size, 1, MPI_INT, dest, 50, MPI_COMM_WORLD);
-    MPI_Send(rd->out, rd->size, MPI_INT, dest, 50, MPI_COMM_WORLD);
-}
-
-void rcv_read_data_output(read_data *rd, int recp)
-{
-    MPI_Recv(&rd->size, 1, MPI_INT, 1, 50, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-    rd->out = malloc(rd->size * sizeof(int));
-    MPI_Recv(rd->out, rd->size, MPI_INT, 1, 50, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    MPI_Send(&size, 1, MPI_INT, 0, 50, MPI_COMM_WORLD);
+    MPI_Send(out, size, MPI_INT, 0, 50, MPI_COMM_WORLD);
 }
