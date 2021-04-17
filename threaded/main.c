@@ -87,7 +87,8 @@ void solveMagicSquare(int argc, char *argv[])
     }
     int thread_count = argc > 2 ? atoi(argv[2]) : DEFAULT_THREAD_COUNT;
 
-    printf("%s", determineSquareType(argv[1], thread_count));
+    determineSquareType(argv[1], thread_count);
+    //printf("%s", determineSquareType(argv[1], thread_count));
 }
 
 int main(int argc, char *argv[])

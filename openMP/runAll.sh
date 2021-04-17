@@ -1,7 +1,8 @@
 #!/bin/sh
 ./compile.sh
-time for f in ../tests/*.txt;
+for f in ../tests/*.txt;
 do
-echo "$f";
-./a.out "$f";
+echo "$f"
+./benchmark.sh "$f" 2> time.txt;
+./media.out time.txt;
 done
