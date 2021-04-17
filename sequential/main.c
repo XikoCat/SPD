@@ -74,8 +74,8 @@ void solveMagicSquare(int argc, char *argv[]) {
     exit(3);
   }
 
-  //determineSquareType(argv[1]);
-  printf("%s", determineSquareType(argv[1]));
+  determineSquareType(argv[1]);
+  //printf("%s", determineSquareType(argv[1]));
 }
 
 int main(int argc, char *argv[]) { solveMagicSquare(argc, argv); }

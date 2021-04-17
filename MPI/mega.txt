@@ -59,3 +59,12 @@
 ../tests/p729.txt
 0.133800
 ../tests/p7501.txt
+6.754033
+../tests/p7.txt
+0.073767
+../tests/p8191.txt
+7.894767
+../tests/p8.txt
+0.070267
+../tests/p9.txt
+0.070633
